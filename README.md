@@ -31,7 +31,7 @@ Helyben kipróbálni: `python3 -m http.server` a mappában, majd `http://localho
 ### Proxy (csak ha kell)
 Ha az app „hálózati vagy CORS hiba” üzenetet ír, a MÁV szervere nem engedi a
 böngészőből érkező közvetlen hívást. Ilyenkor a `proxy/cloudflare-worker.js` fájlt
-tedd ki egy ingyenes Cloudflare Workerbe, és a címét írd be:
+tedd ki egy ingyenes Cloudflare Workerbe, és a címét írd be az `app.js` `DEFAULT_API` sorába, vagy:
 Beállítások → Haladó → *API cím*.
 
 ## 2. iPhone kezdőképernyő-widget (Scriptable)

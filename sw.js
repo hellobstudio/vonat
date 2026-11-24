@@ -1,5 +1,5 @@
 // Egyszerű service worker: az app héja offline is betölt, az API-hívásokat nem cache-eli.
-const CACHE = 'vonat-v1';
+const CACHE = 'vonat-v2';
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg'];
 
 self.addEventListener('install', (e) => {

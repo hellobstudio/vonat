@@ -1,7 +1,9 @@
 'use strict';
 
 // MÁV-Volán EMMA (OpenTripPlanner 2) GraphQL végpont. Vonat és Volánbusz is benne van.
-const DEFAULT_API = 'https://mavplusz.hu/otp2-backend/otp/routers/default/index/graphql';
+// A MÁV szervere nem enged böngészőből hívást (nincs CORS), ezért a saját proxyn keresztül megy.
+const MAV_API = 'https://mavplusz.hu/otp2-backend/otp/routers/default/index/graphql';
+const DEFAULT_API = 'https://vonat-proxy.olajos-balazs.workers.dev/';
 const STORAGE_KEY = 'vonat.settings.v1';
 const REFRESH_MS = 60 * 1000;
 const DAY_NAMES = ['V', 'H', 'K', 'Sze', 'Cs', 'P', 'Szo'];
@@ -24,7 +26,12 @@ const DEFAULTS = {
 function loadSettings() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return { ...DEFAULTS, ...JSON.parse(raw) };
+    if (raw) {
+      const s = { ...DEFAULTS, ...JSON.parse(raw) };
+      // Régi mentés a közvetlen MÁV címmel: az böngészőből nem működik, átállítjuk a proxyra.
+      if (!s.apiUrl || s.apiUrl === MAV_API) s.apiUrl = DEFAULT_API;
+      return s;
+    }
   } catch (_) { /* privát mód stb. */ }
   return structuredClone(DEFAULTS);
 }
