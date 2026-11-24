@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vonat</title>
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1 id="title">Monor → Kőbánya-Kispest</h1>
+      <p id="subtitle" class="muted">Betöltés…</p>
+    </div>
+    <button id="settingsBtn" class="icon" aria-label="Beállítások">⚙︎</button>
+  </header>
+
+  <main>
+    <div id="status" class="status" hidden></div>
+    <ul id="list" class="list"></ul>
+    <p id="updated" class="muted small"></p>
+  </main>
+
+  <dialog id="settings">
+    <form id="settingsForm" method="dialog">
+      <h2>Beállítások</h2>
+
+      <label>Honnan
+        <input id="fromInput" list="fromList" autocomplete="off" required>
+        <datalist id="fromList"></datalist>
+      </label>
+      <label>Hova
+        <input id="toInput" list="toList" autocomplete="off" required>
+        <datalist id="toList"></datalist>
+      </label>
+      <button type="button" id="swapBtn" class="link">⇅ Irány megfordítása</button>
+
+      <div class="row">
+        <label>Mettől <input id="startInput" type="time" required></label>
+        <label>Meddig <input id="endInput" type="time" required></label>
+      </div>
+
+      <fieldset>
+        <legend>Közlekedési eszköz</legend>
+        <label class="check"><input type="checkbox" id="modeRail"> Vonat</label>
+        <label class="check"><input type="checkbox" id="modeBus"> Busz</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Napok</legend>
+        <div id="days" class="days"></div>
+        <label class="check"><input type="checkbox" id="skipHolidays"> Ünnepnapokon ne (következő munkanapot mutatja)</label>
+      </fieldset>
+
+      <label class="check"><input type="checkbox" id="directOnly"> Csak átszállás nélküli járatok</label>
+
+      <details>
+        <summary>Haladó</summary>
+        <label>Plusz szabadnapok (ÉÉÉÉ-HH-NN, vesszővel)
+          <input id="extraOff" placeholder="2026-12-24, 2027-01-02">
+        </label>
+        <label>Ledolgozós szombatok (ÉÉÉÉ-HH-NN, vesszővel)
+          <input id="extraWork" placeholder="2026-01-10">
+        </label>
+        <label>API cím
+          <input id="apiUrl">
+        </label>
+        <p class="muted small">Ha a böngésző CORS hiba miatt nem éri el a MÁV API-t, ide írd a saját proxyd címét (lásd README).</p>
+      </details>
+
+      <div class="actions">
+        <button type="button" id="cancelBtn">Mégse</button>
+        <button type="submit" id="saveBtn" class="primary">Mentés</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
